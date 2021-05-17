@@ -52,39 +52,14 @@ public class Controller {
         });
 
         city.setOnAction(event -> {
-            String getCity = city.getText();
-            String output = getUrl("http://api.openweathermap.org/data/2.5/weather?q=" + getCity + "&units=metric&appid=25b892d8aa25887ea3e92b9aba5f27f0");
-            if (output.equals("exception")) {
-                city.setText("Такого города не существует");
-            }
-            else if (!output.isEmpty()) {
-                JSONObject obj = new JSONObject(output);
-                Double temperInfo = obj.getJSONObject("main").getDouble("temp");
-                temperature.setText(temperInfo.toString() + " градусов Цельсия");
-                Double pressureInfo = obj.getJSONObject("main").getDouble("pressure");
-                pressure.setText(pressureInfo.toString() + " гПа");
-                Double humidityInfo = obj.getJSONObject("main").getDouble("humidity");
-                humidity.setText(humidityInfo.toString() + " %");
-            }
+            showResult();
         });
 
         getWeather.setOnAction(event -> {
-            String getCity = city.getText().trim();
-            String output = getUrl("http://api.openweathermap.org/data/2.5/weather?q=" + getCity + "&units=metric&appid=25b892d8aa25887ea3e92b9aba5f27f0");
-            System.out.println(output);
-            if (output.equals("exception")) {
-                city.setText("Такого города не существует");
-            }
-            else if (!output.isEmpty()) {
-                JSONObject obj = new JSONObject(output);
-                Double temperInfo = obj.getJSONObject("main").getDouble("temp");
-                temperature.setText(temperInfo.toString() + " градусов Цельсия");
-                Double pressureInfo = obj.getJSONObject("main").getDouble("pressure");
-                pressure.setText(pressureInfo.toString() + " гПа");
-                Double humidityInfo = obj.getJSONObject("main").getDouble("humidity");
-                humidity.setText(humidityInfo.toString() + " %");
-            }
+            showResult();
         });
+
+
     }
 
     private static String getUrl(String urlAddress){
@@ -107,5 +82,23 @@ public class Controller {
         }
         return content.toString();
     }
+    private void showResult(){
+        String getCity = city.getText();
+        String output = getUrl("http://api.openweathermap.org/data/2.5/weather?q=" + getCity + "&units=metric&appid=25b892d8aa25887ea3e92b9aba5f27f0");
+        if (output.equals("exception")) {
+            city.setText("Такого города не существует");
+        }
+        else if (!output.isEmpty()) {
+            JSONObject obj = new JSONObject(output);
+            Double temperInfo = obj.getJSONObject("main").getDouble("temp");
+            temperature.setText(temperInfo.toString() + " градусов Цельсия");
+            Double pressureInfo = obj.getJSONObject("main").getDouble("pressure");
+            pressure.setText(pressureInfo.toString() + " гПа");
+            Double humidityInfo = obj.getJSONObject("main").getDouble("humidity");
+            humidity.setText(humidityInfo.toString() + " %");
+        }
+    }
+
+
 }
 
