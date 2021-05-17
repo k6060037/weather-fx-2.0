@@ -87,8 +87,7 @@ public class Controller {
         String output = getUrl("http://api.openweathermap.org/data/2.5/weather?q=" + getCity + "&units=metric&appid=25b892d8aa25887ea3e92b9aba5f27f0");
         if (output.equals("exception")) {
             city.setText("Такого города не существует");
-        }
-        else if (!output.isEmpty()) {
+        } else if (!output.isEmpty()) {
             JSONObject obj = new JSONObject(output);
             Double temperInfo = obj.getJSONObject("main").getDouble("temp");
             temperature.setText(temperInfo.toString() + " градусов Цельсия");
